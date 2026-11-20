@@ -1,0 +1,7 @@
+{
+  "name": "tde-clip",
+  "productName": "TDE Clip",
+  "version": "1.0.0",
+  "description": "TDE Clip – YouTube do DaVinci Resolve",
+  "main": "main.js"
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="ui/clip.css">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body class="tc">
+  <header class="pp-head">
+    <img src="icons/icon-48.png" alt="" width="34" height="34">
+    <div class="pp-head-text">
+      <div class="pp-name">TDE Clip</div>
+      <div class="pp-status"><span class="tc-dot" id="dot"></span><span id="status">Łączę z DaVinci…</span></div>
+    </div>
+  </header>
+  <section class="pp-video" id="video" hidden>
+    <img class="pp-thumb" id="vThumb" alt="" referrerpolicy="no-referrer">
+    <div class="pp-vtext">
+      <div class="pp-vtitle" id="vTitle"></div>
+      <button class="tc-primary pp-open" id="openPanel" type="button"></button>
+    </div>
+  </section>
+  <section class="pp-hint" id="hint" hidden>
+    Otwórz film na YouTube – pod odtwarzaczem pojawi się przycisk <b>DaVinci</b>.
+  </section>
+  <section class="pp-section" id="jobsSec" hidden>
+    <div class="tc-label-row pp-label"><span class="tc-caption">Ostatnie pobrania</span></div>
+    <div class="tc-group pp-jobs" id="jobs"></div>
+  </section>
+  <section class="tc-offline" id="offline" hidden></section>
+  <footer class="pp-foot">
+    <button class="tc-btn" id="openApp" type="button"></button>
+    <button class="tc-btn" id="openFolder" type="button"></button>
+  </footer>
+  <script src="ui/clip-core.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

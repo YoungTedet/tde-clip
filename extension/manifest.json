@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "TDE Clip – do DaVinci",
+  "short_name": "TDE Clip",
+  "version": "1.0.0",
+  "description": "Pobieraj wybrane fragmenty filmów z YouTube prosto do DaVinci Resolve.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyeaiPbtcSJzh9sOboiBcL4MQkx168jnivz6Vg5yool1RhmUGwu8VYY4jCPSJJ0P2XaQsq9C1SUX3nvB32rTBFvOsut7mRJ7qmoAeuyau9O7FxOR7MoMYw7ozlbYQK1QIRC6E+R3PFbzbfq1VWLjUu24RKHmIAdR/UcXi2ljCTqqnSGOX9GwCjfHe8qf5USKCzSA32AZGnupAzIgbIkGxaViSbBhFR3Ni9Jcoh8l3Z35YVckbm+yntflLpqMDF2nAo+diUOZFz4xFGDmeQpnMqId6ZnOctQzUQdnC75j3vG+Xvpsmu68YLVZ+Cyx+wuMtgf88lBQrcSPHdPTQi3PzHwIDAQAB",
+  "icons": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
+  "action": {
+    "default_title": "TDE Clip",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon-16.png", "32": "icons/icon-32.png" }
+  },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["nativeMessaging", "tabs"],
+  "host_permissions": ["http://127.0.0.1:8770/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["ui/clip-core.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    { "resources": ["ui/clip.css", "icons/icon-32.png", "icons/icon-48.png"], "matches": ["https://www.youtube.com/*"] }
+  ],
+  "commands": {
+    "toggle-panel": { "suggested_key": { "default": "Alt+D", "mac": "Alt+D" }, "description": "Otwórz panel TDE Clip na filmie" }
+  }
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>TDE Clip</title>
+<link rel="icon" href="/icons/icon-128.png">
+<link rel="stylesheet" href="/ui/clip.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="tc">
+<div class="app">
+  <aside class="sidebar">
+    <div class="sb-drag"><img class="sb-brand" src="/icons/icon-32.png" alt=""><span class="sb-brand-name">TDE Clip</span></div>
+    <nav class="sb-nav" aria-label="Nawigacja">
+      <button class="sb-item" data-view="search" aria-current="page">
+        <span class="sb-ic" data-icon="search"></span><span class="sb-label">Szukaj</span>
+      </button>
+      <button class="sb-item" data-view="downloads">
+        <span class="sb-ic" data-icon="downloadCircle"></span><span class="sb-label">Pobrane</span>
+        <span class="sb-badge" hidden></span>
+      </button>
+      <div class="sb-heading" id="recentHeading" hidden>Ostatnio szukane</div>
+      <div class="sb-recent" id="recent"></div>
+    </nav>
+    <div class="sb-bottom">
+      <div class="resolve-card" id="resolveCard">
+        <span class="tc-dot" id="resolveDot"></span>
+        <div class="rc-text">
+          <div class="rc-title" id="resolveTitle">DaVinci Resolve</div>
+          <div class="rc-sub" id="resolveSub">Łączę…</div>
+        </div>
+      </div>
+      <button class="sb-item sb-settings" id="openSettings"><span class="sb-ic" data-icon="sliders"></span><span class="sb-label">Ustawienia</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="toolbar">
+      <button class="tb-back" id="back" type="button" aria-label="Wstecz" title="Wstecz (Esc)" hidden></button>
+      <h1 class="tb-title" id="tbTitle">Szukaj</h1>
+      <form class="tb-search" id="searchForm" role="search">
+        <span class="tb-search-ic" data-icon="search"></span>
+        <input id="q" type="search" placeholder="Szukaj na YouTube albo wklej link" autocomplete="off" spellcheck="false" aria-label="Szukaj na YouTube">
+        <kbd class="tc-kbd tb-kbd">⌘K</kbd>
+      </form>
+    </header>
+
+    <div class="views">
+      <!-- SZUKAJ -->
+      <section class="view" id="view-search" data-active>
+        <div class="empty" id="emptyState">
+          <img class="empty-icon" src="/icons/icon-128.png" alt="" width="72" height="72">
+          <h2>Znajdź ujęcie na YouTube</h2>
+          <p>Wpisz hasło albo wklej link. Zaznaczone fragmenty trafią prosto do Media Poola w&nbsp;DaVinci.</p>
+          <div class="empty-tips">
+            <div><span class="tc-kbd">⌘K</span> szukaj</div>
+            <div><span class="tc-kbd">I</span><span class="tc-kbd">O</span> początek i koniec fragmentu</div>
+            <div><span class="tc-kbd">⌘↵</span> pobierz do DaVinci</div>
+          </div>
+        </div>
+        <div class="results" id="results" hidden>
+          <div class="results-head">
+            <div class="rh-title" id="rhTitle"></div>
+            <div id="sortMount"></div>
+          </div>
+          <div class="grid" id="grid"></div>
+        </div>
+      </section>
+
+      <!-- FILM -->
+      <section class="view" id="view-detail">
+        <div class="detail">
+          <div class="detail-main">
+            <div class="player-wrap">
+              <div id="player"></div>
+              <button class="poster" id="poster" type="button" aria-label="Odtwórz film"><img id="posterImg" alt=""><span class="poster-play" id="posterPlay"></span></button>
+              <div class="player-fallback" id="playerFallback" hidden>
+                <img id="fallbackImg" alt="">
+                <div class="pf-box">
+                  <strong>Ten film nie pozwala na odtwarzanie poza YouTube</strong>
+                  <span>Zaznacz fragmenty na pasku klatek poniżej albo obejrzyj go na YouTube.</span>
+                  <button class="tc-btn" id="openYt2" type="button"></button>
+                </div>
+              </div>
+            </div>
+            <div class="moments-mount" id="momentsMount"></div>
+            <div class="desc-block">
+              <p class="desc" id="desc"></p>
+            </div>
+          </div>
+          <aside class="inspector">
+            <div class="insp-head">
+              <div class="insp-meta" id="dMeta"></div>
+              <button class="link-btn" id="openYt" type="button"></button>
+            </div>
+            <div class="insp-body" id="optionsMount"></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- POBRANE -->
+      <section class="view" id="view-downloads">
+        <div class="dl-wrap">
+          <div class="dl-head">
+            <div>
+              <h2>Pobrane</h2>
+              <p id="dlSub">Wszystko, co wysłałeś do DaVinci – z Chrome i z tego okna.</p>
+            </div>
+            <div class="dl-actions">
+              <button class="tc-btn" id="dlFolder" type="button"></button>
+              <button class="tc-btn" id="dlClear" type="button">Wyczyść zakończone</button>
+            </div>
+          </div>
+          <div class="dl-list tc-group" id="dlList"></div>
+          <div class="empty small" id="dlEmpty">
+            <div class="empty-glyph" data-icon="downloadCircle" data-size="44" data-sw="1.1"></div>
+            <h3>Nic jeszcze nie pobrano</h3>
+            <p>Otwórz film i kliknij „Pobierz do DaVinci” – postęp zobaczysz tutaj.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- USTAWIENIA -->
+<div class="modal" id="settings" hidden>
+  <div class="modal-scrim" data-close></div>
+  <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <h2 id="setTitle">Ustawienia</h2>
+    <div class="tc-group" id="setGroup"></div>
+    <p class="set-note" id="setNote"></p>
+    <div class="modal-actions">
+      <button class="tc-btn" type="button" data-close>Anuluj</button>
+      <button class="tc-primary set-save" type="button" id="setSave">Gotowe</button>
+    </div>
+  </div>
+</div>
+
+<div class="offline-banner" id="offline" hidden>
+  <span class="tc-dot tc-warn"></span>
+  <span>Silnik TDE Clip nie odpowiada. Uruchom go ponownie z menu DaVinci: <b>Workspace › Scripts › TDE Clip</b>.</span>
+</div>
+
+<script src="/ui/clip-core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

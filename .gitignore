@@ -1,0 +1,15 @@
+# Lokalne – tworzy je instalator i silnik na każdym komputerze
+config.json
+data/
+resolve/com.tde.clip/tdeclip.json
+
+# Prywatny klucz rozszerzenia (ID wynika z publicznego klucza w manifest.json)
+.keys/
+*.pem
+
+# Cudze materiały do zrzutów ekranu – tylko lokalnie
+dev/media/
+
+__pycache__/
+*.pyc
+.DS_Store

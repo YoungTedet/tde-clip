@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BlackmagicDesign>
+    <Plugin>
+        <Id>com.tde.clip</Id>
+        <Name>TDE Clip</Name>
+        <Version>1.0</Version>
+        <Description>Szukaj na YouTube i pobieraj wybrane fragmenty prosto do Media Poola.</Description>
+        <FilePath>main.js</FilePath>
+    </Plugin>
+</BlackmagicDesign>
